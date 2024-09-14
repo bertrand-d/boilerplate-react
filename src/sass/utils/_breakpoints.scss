@@ -1,0 +1,42 @@
+$breakpoints: (
+    xl: 1440px,
+    md: 1024px,
+    sm: 550px
+);
+
+//mixin for desktop first default value.
+@mixin breakpoint($breakpoint, $direction: down) {
+
+    // If the breakpoint exists in the map.
+    @if map-has-key($breakpoints, $breakpoint) {
+
+        // Get the breakpoint value.
+        $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+        // Determine the direction and then write the media query.
+        @if $direction ==up {
+            @media (min-width: $breakpoint-value) {
+                @content;
+            }
+        }
+
+        @else if $direction ==down {
+            @media (max-width: $breakpoint-value) {
+                @content;
+            }
+        }
+    }
+}
+
+/* HOW TO USE :
+
+for desktop first
+@include breakpoint(lg) {
+     display: flex;
+} 
+
+for mobile first
+@include breakpoint(lg, up) {
+     display: flex;
+} 
+*/
